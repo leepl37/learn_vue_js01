@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- //props -->
+                       <!-- v-bind:타입지정 = 데이터입력 -->
+        <!-- <app-header v-bind:props 속성이름="상위 컴포넌트의 데이터 이름"></app-header> -->
+        <app-header v-bind:textdata="message"></app-header> 
+        <app-header v-bind:textdata="name"></app-header> 
+        <app-content v-bind:propsdata="message"></app-content>
+    </div>    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        //props 속성은 대문자인식 안됨.
+        let appHeader = { 
+            // template : '<h1> headerHello </h1>',  
+            template : '<h1> {{textdata}} </h1>',
+            props : ['textdata'],
+     } 
+        let appContent = {
+            template : '<div>content</div>',
+            props: ['propsdata'],
+        }
+
+        
+        let vm = new Vue({
+            el: '#app',
+            data:{
+                message:"hello",
+                name:"gwanho",
+            },
+            components:{
+                'app-header': appHeader,
+                'app-content': appContent,
+                //'app-header' : { template : '<h1> headerHello </h1>'} 코드를 간략화하기 위해 appHeader 라는 변수에 지정.
+            }
+            })
+
+    </script>
+</body>
+</html>

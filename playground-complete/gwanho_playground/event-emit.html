@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <app-button v-on:하위 컴포넌트에서 발생한 이벤트 이름="상위 컴포넌트(Vue객체의 메서드이름)"></app-button> -->
+        <app-button v-on:occur="logText" v-bind:btype="message"></app-button>
+        <app-increasebutton v-bind:add="number" v-on:add="addClicked"></app-increasebutton>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        let app_button = { 
+            template: '<button v-on:click="passEvent">{{btype}}</button>',
+            props: ['btype'],
+            methods: {
+                passEvent: function() {
+                    this.$emit('occur');
+                }
+            }
+        }
+
+        let app_increasebutton = {
+            template: '<button v-on:click="addEvent">{{add}}</button>',
+            props: ['add'],
+            methods: {
+                addEvent: function(){
+                    this.$emit('add')
+                }
+            },
+        }
+
+
+        new Vue({
+            el: '#app',
+            data: {
+                message:"hello",
+                number:10
+            },
+            components: {
+                'app-button' : app_button,
+                'app-increasebutton': app_increasebutton,
+            },
+            methods: {
+                logText: function(){
+                    console.log("hi gwanho");
+                },
+                addClicked: function(){
+                    if(this.number>=20){
+                        alert("더 이상 증가 될 수 없습니다.")
+                    }else{
+                        this.number += 1;
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+</html>
